@@ -26,7 +26,7 @@ namespace BL
            
        
             WebRequest request;
-            request = WebRequest.Create("http://127.0.0.1:9007/sentiment/?email=" + "desf");
+            request = WebRequest.Create("http://127.0.0.1:9007/getprice/?url=" + "https://www.terminalx.com/babyboys/bodysuits-overalls/overalls/z268730004?color=6");
             WebResponse response = request.GetResponse();
             string responseFromServer = string.Empty;
             using (Stream dataStream = response.GetResponseStream())
