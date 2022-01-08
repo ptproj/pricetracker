@@ -26,7 +26,7 @@ namespace BL
            
        
             WebRequest request;
-            request = WebRequest.Create("http://127.0.0.1:9007/sentiment/?email=" + "desf");
+            request = WebRequest.Create("http://127.0.0.1:9007/sentiment/?email="+"kkk" );
             WebResponse response = request.GetResponse();
             string responseFromServer = string.Empty;
             using (Stream dataStream = response.GetResponseStream())
@@ -34,6 +34,7 @@ namespace BL
                 // Open the stream using a StreamReader for easy access.
                 StreamReader reader = new StreamReader(dataStream);
                 // Read the content.
+                reader.ToString();
                 responseFromServer = reader.ReadToEnd();
                 // Display the content.
                 Console.WriteLine(responseFromServer);
