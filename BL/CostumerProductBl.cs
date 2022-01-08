@@ -26,7 +26,11 @@ namespace BL
 
             string link = costumerproduct.Productlink;
             WebRequest request;
+ 
+            
+
             request = WebRequest.Create("http://127.0.0.1:9007/getprice/?url=" + link);
+
             WebResponse response = request.GetResponse();
             string responseFromServer = string.Empty;
             using (Stream dataStream = response.GetResponseStream())
@@ -49,8 +53,7 @@ namespace BL
             Console.WriteLine(priceres);
             string []pricearr = priceres.Split(",");
             string baseprice;
-            costumerproduct.Baseprice = 8;
-
+           
             if (pricearr.Length == 3)
                 baseprice = pricearr[1];
             else if (pricearr.Length == 2)
@@ -84,7 +87,10 @@ namespace BL
             }
             //טיפול בתשובה שחזרה מהשרת
             response2.Close();
-
+            int start2 = responseFromServer2.IndexOf("[");
+            int end2 = responseFromServer2.IndexOf("]");
+            string desc=responseFromServer2.Substring(start2+2, end2 - start2 - 1);
+            costumerproduct.Description = desc;
             return await costumerProductdl.post(costumerproduct);
 
         }
