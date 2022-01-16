@@ -24,13 +24,14 @@ namespace DL
         public virtual DbSet<Costumerproduct> Costumerproducts { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<Producttoadvertise> Producttoadvertises { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=srv2\\PUPILS;Database=PriceTracker;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=srv2\\pupils;Database=PriceTracker;Trusted_Connection=True;");
             }
         }
 
@@ -177,14 +178,42 @@ namespace DL
                 entity.HasOne(d => d.Companyproduct)
                     .WithMany(p => p.Producttoadvertises)
                     .HasForeignKey(d => d.Companyproductid)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_producttoadvertise_companyproducts");
 
                 entity.HasOne(d => d.Costumerproduct)
                     .WithMany(p => p.Producttoadvertises)
                     .HasForeignKey(d => d.Costumerproductid)
-                    .OnDelete(DeleteBehavior.Cascade)                    
                     .HasConstraintName("FK_producttoadvertise_costumerproduct");
+            });
+
+            modelBuilder.Entity<Rating>(entity =>
+            {
+                entity.ToTable("RATING");
+
+                entity.Property(e => e.RatingId).HasColumnName("RATING_ID");
+
+                entity.Property(e => e.Host)
+                    .HasMaxLength(50)
+                    .HasColumnName("HOST");
+
+                entity.Property(e => e.Method)
+                    .HasMaxLength(10)
+                    .HasColumnName("METHOD")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.Path)
+                    .HasMaxLength(50)
+                    .HasColumnName("PATH");
+
+                entity.Property(e => e.RecordDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Record_Date");
+
+                entity.Property(e => e.Referer)
+                    .HasMaxLength(100)
+                    .HasColumnName("REFERER");
+
+                entity.Property(e => e.UserAgent).HasColumnName("USER_AGENT");
             });
 
             OnModelCreatingPartial(modelBuilder);

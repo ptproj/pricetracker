@@ -16,6 +16,7 @@ namespace DL
         }
         public async Task<List<Costumerproduct>> get(int Costumerid)
         {
+           
             return  _context.Costumerproducts.Where(x => x.Costumerid == Costumerid).ToList();
         }
         public async Task<Costumerproduct> post(Costumerproduct costumerproduct)

@@ -34,7 +34,8 @@ namespace priceTracker
         {
 
             services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
-            Configuration.GetConnectionString("priceTracker")), ServiceLifetime.Scoped);
+            Configuration.GetConnectionString("priceTracker")));
+            //, ServiceLifetime.Scoped
             services.AddScoped<ICostumerDl, CostumerDl>();
             services.AddScoped<ICostumerBl, CostumerBl>();
             services.AddScoped<ICompanyDl, CompanyDl>();
@@ -66,7 +67,8 @@ namespace priceTracker
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseErrorMiddleware();
+            app.UseRatingMiddleware();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
