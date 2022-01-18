@@ -65,10 +65,11 @@ namespace priceTracker
             }
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
             app.UseErrorMiddleware();
             app.UseRatingMiddleware();
+            app.UseRouting();
+           
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

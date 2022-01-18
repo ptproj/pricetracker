@@ -27,7 +27,7 @@ namespace priceTracker
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex.Message);
+                _logger.LogInformation(ex.Message,ex.StackTrace);
                 httpContext.Response.StatusCode = 500;
             }
             
