@@ -2,6 +2,7 @@ using BL;
 using DL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -65,17 +66,48 @@ namespace priceTracker
             }
 
             app.UseHttpsRedirection();
+
             app.UseErrorMiddleware();
-            app.UseRatingMiddleware();
+
+            app.UseResponseCaching();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(10)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
+
+                await next();
+            });
+
+            ////app.Map("/api", app2 =>
+            //{
+            //    app2.UseRouting();
+            //    app2.UseRatingMiddleware();
+
+            //    app2.UseAuthorization();
+
+            //    app2.UseEndpoints(endpoints2 =>
+            //    {
+            //        endpoints2.MapControllers();
+            //    });
+            //});
             app.UseRouting();
-           
-            
+            app.UseRatingMiddleware();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
+

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace priceTracker
@@ -12,23 +13,23 @@ namespace priceTracker
     public class ErrorMiddleware
     {
         private readonly RequestDelegate _next;
-
+        ILogger<ErrorMiddleware> _logger;
         public ErrorMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext,ILogger<ErrorMiddleware> _logger)
+        public async Task Invoke(HttpContext httpContext,ILogger<ErrorMiddleware> logger)
         {
-
+            _logger = logger;
             try
             {
                 await _next(httpContext);
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex.Message,ex.StackTrace);
-                httpContext.Response.StatusCode = 500;
+                _logger.LogError("Error From My Middleare: " + ex.Message + "Stack Tracre is: " + ex.StackTrace);
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             
         }
