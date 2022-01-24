@@ -18,13 +18,34 @@ namespace DL
         public async Task<List<Companyproduct>> get(int companyid)
         {
             return _context.Companyproducts.Where(x => x.Companyid == companyid).ToList();
-
+        
+        }
+        public int getcount(int companyid)
+        {
+            int count = _context.Companyproducts.Where(x => x.Companyid == companyid).Count();
+            try
+            {
+                int Packageid = (int)_context.Companies.Where(x => x.Id == companyid).FirstOrDefault().Packageid;
+                int numproductsamount = _context.Packages.Where(x => x.Id == Packageid).FirstOrDefault().Productsamount;
+                return numproductsamount - count;
+            }
+            catch (Exception ex) {
+                return(-1);
+            };
         }
         public async Task<Companyproduct> post(Companyproduct companyproduct)
         {
-            _context.Companyproducts.Add(companyproduct);
-            await _context.SaveChangesAsync();
-            return companyproduct;
+            int count = _context.Companyproducts.Where(x => x.Companyid == companyproduct.Companyid).Count();
+            int Packageid = (int)_context.Companies.Where(x => x.Id == companyproduct.Companyid).FirstOrDefault().Packageid;
+            int numproductsamount = _context.Packages.Where(x => x.Id == Packageid).FirstOrDefault().Productsamount;
+            if(count< numproductsamount)
+            {
+                _context.Companyproducts.Add(companyproduct);
+                await _context.SaveChangesAsync();
+                return companyproduct;
+
+            }
+            throw new Exception("you passed your numproductsamount.");
 
         }
         public async Task delete(int id)

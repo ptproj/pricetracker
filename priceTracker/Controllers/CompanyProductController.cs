@@ -33,6 +33,12 @@ namespace priceTracker.Controllers
             return companyproductbl.get(companyid);
         }
 
+        [HttpGet("count/{companyid}")]
+        public int Getcount(int companyid)
+        {
+            return companyproductbl.getcount(companyid);
+        }
+
         // POST api/<CompanyProductController>
         [HttpPost]
         public Task<Companyproduct> Post([FromBody] Companyproduct companyproduct)

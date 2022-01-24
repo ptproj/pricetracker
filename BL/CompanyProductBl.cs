@@ -19,6 +19,11 @@ namespace BL
         {
             return await companyproductdl.get(companyid);
         }
+        public int getcount(int companyid)
+        {
+            return companyproductdl.getcount(companyid);
+        }
+
         public async Task<Companyproduct> post(Companyproduct companyproduct)
         {
             return await companyproductdl.post(companyproduct);
@@ -31,6 +36,7 @@ namespace BL
         {
             await companyproductdl.put(companyproduct);
         }
+
 
     }
 }

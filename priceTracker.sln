@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "priceTracker", "priceTracker\priceTracker.csproj", "{38702CC0-6677-444B-AADF-CA3947854EC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL", "DL\DL.csproj", "{72D3E5D7-3BF2-4D98-BC33-499DDB72DE39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DL", "DL\DL.csproj", "{72D3E5D7-3BF2-4D98-BC33-499DDB72DE39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{E53BE8A2-7E94-4FB1-B030-6A4D72F76D00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{E53BE8A2-7E94-4FB1-B030-6A4D72F76D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{6F66E5E5-A305-4357-A6C1-67EEFDB41B5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{6F66E5E5-A305-4357-A6C1-67EEFDB41B5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{B41F80BB-7D2D-45E3-9370-6A130499DD7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6F66E5E5-A305-4357-A6C1-67EEFDB41B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F66E5E5-A305-4357-A6C1-67EEFDB41B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F66E5E5-A305-4357-A6C1-67EEFDB41B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B41F80BB-7D2D-45E3-9370-6A130499DD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B41F80BB-7D2D-45E3-9370-6A130499DD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B41F80BB-7D2D-45E3-9370-6A130499DD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B41F80BB-7D2D-45E3-9370-6A130499DD7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
