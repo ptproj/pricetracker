@@ -63,18 +63,19 @@ namespace priceTracker
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+
+
+            app.UseErrorMiddleware();
+
             logger.LogInformation("system is up!!");
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+              //  app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "priceTracker v1"));
             }
 
             app.UseHttpsRedirection();
-
-            app.UseErrorMiddleware();
-
             app.UseResponseCaching();
 
             app.Use(async (context, next) =>
@@ -83,28 +84,28 @@ namespace priceTracker
                     new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
                     {
                         Public = true,
-                        MaxAge = TimeSpan.FromSeconds(10)
+                        MaxAge = TimeSpan.FromSeconds(60)
                     };
                 context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
                     new string[] { "Accept-Encoding" };
 
                 await next();
             });
-
-            ////app.Map("/api", app2 =>
-            //{
-            //    app2.UseRouting();
-            //    app2.UseRatingMiddleware();
-
-            //    app2.UseAuthorization();
-
-            //    app2.UseEndpoints(endpoints2 =>
-            //    {
-            //        endpoints2.MapControllers();
-            //    });
-            //});
             app.UseRouting();
-            app.UseRatingMiddleware();
+            app.Map("/api", app2 =>
+            {
+                app2.UseRouting();
+                app2.UseRatingMiddleware();
+
+                app2.UseAuthorization();
+
+                app2.UseEndpoints(endpoints2 =>
+                {
+                    endpoints2.MapControllers();
+                });
+            });
+
+           // app.UseRatingMiddleware();
 
             app.UseAuthorization();
 
