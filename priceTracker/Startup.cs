@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace priceTracker
@@ -52,6 +53,11 @@ namespace priceTracker
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "priceTracker", Version = "v1" });
             });
+            
+                TimerCallback callback = (x) => {  };
+                int intervalInMS = 2 * 60 * 60 * 1000;  // every 2 hours. 
+                Timer timer = new Timer(callback, state: null, dueTime: intervalInMS, period: intervalInMS);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

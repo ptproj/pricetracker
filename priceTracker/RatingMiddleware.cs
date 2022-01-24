@@ -28,8 +28,13 @@ namespace priceTracker
             _context = context;
             await _next(httpContext);
             Rating r = new Rating { 
-                Host = httpContext.Request.Host.ToString(), RecordDate = DateTime.Now,
-                Method = httpContext.Request.Method, Path = httpContext.Request.Path,};
+                Host = httpContext.Request.Host.ToString(), 
+                RecordDate = DateTime.Now,
+                Method = httpContext.Request.Method, 
+                Path = httpContext.Request.Path,
+                UserAgent = httpContext.Request.Headers["User-Agent"].ToString(),
+                Referer = httpContext.Request.Headers["Referer"],
+            };
             _context.Ratings.Add(r);
             await _context.SaveChangesAsync();
 
