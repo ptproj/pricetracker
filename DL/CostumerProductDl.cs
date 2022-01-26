@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,25 @@ namespace DL
             Costumerproduct c = _context.Costumerproducts.SingleOrDefault(x => x.Id == id);
             _context.Costumerproducts.Remove(c);
              _context.SaveChanges();
+        }
+        public async Task put(Costumerproduct costumerproduct)
+        {
+            Costumerproduct c = await _context.Costumerproducts.FirstOrDefaultAsync(x => x.Id.Equals(costumerproduct.Id));
+            if (c == null)
+            {
+
+            }
+            _context.Entry(c).CurrentValues.SetValues(costumerproduct);
+            await _context.SaveChangesAsync();
+        }
+
+        public List<Costumerproduct> getall() {
+            return _context.Costumerproducts.ToList();
+        }
+        public async Task<string> getemail(int costumerid)
+        {
+            Costumer c=await _context.Costumers.FirstOrDefaultAsync(x => x.Id.Equals(costumerid));
+            return c.Email;
         }
     }
 

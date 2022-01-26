@@ -54,7 +54,8 @@ namespace priceTracker
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "priceTracker", Version = "v1" });
             });
             
-                TimerCallback callback = (x) => {  };
+                TimerCallback callback = (x) => {
+                };
                 int intervalInMS = 2 * 60 * 60 * 1000;  // every 2 hours. 
                 Timer timer = new Timer(callback, state: null, dueTime: intervalInMS, period: intervalInMS);
             
