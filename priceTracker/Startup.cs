@@ -35,7 +35,16 @@ namespace priceTracker
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", p =>
+                {
+                    p.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+                services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
             Configuration.GetConnectionString("priceTracker")));
             //, ServiceLifetime.Scoped
             services.AddScoped<ICostumerDl, CostumerDl>();
@@ -92,6 +101,7 @@ namespace priceTracker
 
                 await next();
             });
+            app.UseCors("AllowAll");
             app.UseRouting();
             app.Map("/api", app2 =>
             {
@@ -106,6 +116,7 @@ namespace priceTracker
                 });
             });
 
+           
            // app.UseRatingMiddleware();
 
             app.UseAuthorization();
