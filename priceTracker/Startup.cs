@@ -75,7 +75,7 @@ namespace priceTracker
         {
 
 
-            app.UseErrorMiddleware();
+           // app.UseErrorMiddleware();
 
             logger.LogInformation("system is up!!");
             if (env.IsDevelopment())
@@ -86,38 +86,39 @@ namespace priceTracker
             }
 
             app.UseHttpsRedirection();
-            app.UseResponseCaching();
+          //  app.UseResponseCaching();
 
-            app.Use(async (context, next) =>
-            {
-                context.Response.GetTypedHeaders().CacheControl =
-                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
-                    {
-                        Public = true,
-                        MaxAge = TimeSpan.FromSeconds(60)
-                    };
-                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
-                    new string[] { "Accept-Encoding" };
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.GetTypedHeaders().CacheControl =
+            //        new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+            //        {
+            //            Public = true,
+            //            MaxAge = TimeSpan.FromSeconds(60)
+            //        };
+            //    context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+            //        new string[] { "Accept-Encoding" };
 
-                await next();
-            });
-            app.UseCors("AllowAll");
-            app.UseRouting();
-            app.Map("/api", app2 =>
-            {
-                app2.UseRouting();
-                app2.UseRatingMiddleware();
-
-                app2.UseAuthorization();
-
-                app2.UseEndpoints(endpoints2 =>
-                {
-                    endpoints2.MapControllers();
-                });
-            });
-
+            //    await next();
+            //});
            
-           // app.UseRatingMiddleware();
+            app.UseRouting();
+            app.UseCors("AllowAll");
+            //app.Map("/api", app2 =>
+            //{
+            //    app2.UseRouting();
+            //    app2.UseRatingMiddleware();
+
+            //    app2.UseAuthorization();
+
+            //    app2.UseEndpoints(endpoints2 =>
+            //    {
+            //        endpoints2.MapControllers();
+            //    });
+            //});
+
+
+            //app.UseRatingMiddleware();
 
             app.UseAuthorization();
 
