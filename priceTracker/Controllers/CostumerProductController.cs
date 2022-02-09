@@ -1,5 +1,6 @@
 ﻿using BL;
 using Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CostumerProductController : ControllerBase
     {
         ICostumerProductBl costumerProductbl;
@@ -28,10 +30,10 @@ namespace priceTracker.Controllers
 
         // GET api/<CostumerProductController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Costumerproduct>>> Get(int id)
+        public  ActionResult<List<Costumerproduct>> Get(int id)
         {
            
-            return await costumerProductbl.get(id);
+            return  costumerProductbl.get(id);
         }
 
         // POST api/<CostumerProductController>

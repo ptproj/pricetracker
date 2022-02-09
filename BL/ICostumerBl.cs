@@ -1,12 +1,13 @@
-﻿using Entity;
+﻿using DTO;
+using Entity;
 using System.Threading.Tasks;
 
 namespace BL
 {
     public interface ICostumerBl
     {
-        public Task<Costumer> post(Costumer _costumer);
-        public Task<Costumer> get(string email);
+        public Task<DTOLoginCostumer> post(Costumer costumer);
+        public Task<DTOLoginCostumer> get(string email);
     }
     
 }

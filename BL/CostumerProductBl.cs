@@ -18,9 +18,9 @@ namespace BL
         {
             this.costumerProductdl = costumerProductdl;
         }
-        public async Task<List<Costumerproduct>>get(int id)
+        public  List<Costumerproduct>get(int id)
         {
-            return await costumerProductdl.get(id);
+            return costumerProductdl.get(id);
         }
 
         public async Task<Costumerproduct> post(Costumerproduct costumerproduct)

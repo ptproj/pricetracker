@@ -1,5 +1,7 @@
 ﻿using BL;
+using DTO;
 using Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,11 +29,12 @@ namespace priceTracker.Controllers
         //}
 
         // GET api/<UserController>/5
-        [HttpGet("{email}")]
-        public async Task<ActionResult<Costumer>> Get(string email)
+        [HttpPost("login")]
+        
+        public async Task<ActionResult<DTOLoginCostumer>> Get([FromBody] DTOLoginCostumer dTOLoginCostumer)
         {
-           
-            Costumer c =  await costumerbl.get(email);
+
+            DTOLoginCostumer c =  await costumerbl.get(dTOLoginCostumer.Email);
             if (c != null)
                 return c;
             else return NoContent();
@@ -39,9 +42,9 @@ namespace priceTracker.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<ActionResult<Costumer>>  Post([FromBody] Costumer costumer)
+        public async Task<ActionResult<DTOLoginCostumer>>  Post([FromBody] Costumer costumer)
         {
-            Costumer c= await costumerbl.post(costumer);
+            DTOLoginCostumer c = await costumerbl.post(costumer);
             if (c != null)
                 return c;
             else return NoContent();

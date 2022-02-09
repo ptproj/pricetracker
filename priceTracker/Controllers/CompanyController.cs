@@ -1,5 +1,8 @@
-﻿using BL;
+﻿using AutoMapper;
+using BL;
 using Entity;
+using DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,9 +18,11 @@ namespace priceTracker.Controllers
     public class CompanyController : ControllerBase
     {
         ICompanyBl companybl;
-        public CompanyController(ICompanyBl companybl)
+        IMapper _mapper;
+        public CompanyController(ICompanyBl companybl, IMapper mapper)
         {
             this.companybl = companybl;
+            this._mapper = mapper;
         }
         // GET: api/<CompanyController>
         //[HttpGet]
@@ -27,10 +32,11 @@ namespace priceTracker.Controllers
         //}
 
         // GET api/<CompanyController>/5
-        [HttpGet("{name}/{pass}")]
-        public async Task<ActionResult<Company>>Get(string name,string pass)
+        [HttpPost("login")]
+        public async Task<ActionResult<DTOLoginCompany>>Get([FromBody] DTOLoginCompany dTOLoginCompany)
         {
-            Company c= await companybl.get(name,pass);
+            DTOLoginCompany c= await companybl.get(dTOLoginCompany.Name, dTOLoginCompany.Passward);
+            
             if (c!=null)
                 return c;
             else return NoContent();
@@ -38,9 +44,9 @@ namespace priceTracker.Controllers
 
         // POST api/<CompanyController>
         [HttpPost]
-        public async Task<ActionResult<Company>> Post([FromBody] Company company)
+        public async Task<ActionResult<DTOLoginCompany>> Post([FromBody] Company company)
         {
-            Company c =await companybl.post(company);
+            DTOLoginCompany c =await companybl.post(company);
             if (c != null)
                 return c;
             else return NoContent();
@@ -48,8 +54,13 @@ namespace priceTracker.Controllers
 
         // PUT api/<CompanyController>/5
         [HttpPut("{packageid}/{companyid}")]
+        [Authorize]
+
         public async Task<bool> put(int packageid, int companyid)
         {
+            String name=HttpContext.User.Identity.Name;
+
+
             return await companybl.put(packageid, companyid);
         }
 

@@ -7,7 +7,7 @@ namespace DL
     public interface ICostumerProductDl
     {
 
-        public Task<List<Costumerproduct>> get(int id);
+        public List<Costumerproduct> get(int id);
         public Task<Costumerproduct> post(Costumerproduct costumerproduct);
         public void delete(int id);
         public Task put(Costumerproduct costumerproduct);
