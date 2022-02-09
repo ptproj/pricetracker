@@ -7,7 +7,7 @@ namespace BL
     public interface ICostumerBl
     {
         public Task<DTOLoginCostumer> post(Costumer costumer);
-        public Task<DTOLoginCostumer> get(string email);
+        public Task<DTOLoginCostumer> get(string email,string password);
     }
     
 }

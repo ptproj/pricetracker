@@ -48,9 +48,9 @@ namespace BL
             c1.Password = null;
             return c1;
         }
-        public async Task<DTOLoginCostumer> get(string email)
+        public async Task<DTOLoginCostumer> get(string email,string password)
         {
-            Costumer c=await costumerdl.get(email);
+            Costumer c=await costumerdl.get(email,password);
             DTOLoginCostumer c1 = _mapper.Map<Costumer, DTOLoginCostumer>(c);
             if (c == null) return null;
             // authentication successful so generate jwt token

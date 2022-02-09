@@ -25,10 +25,10 @@ namespace DL
            await  _context.SaveChangesAsync();
             return costumer;
         }
-        public async Task<Costumer> get(string email)
+        public async Task<Costumer> get(string email,string password)
         {
            
-            return await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email);
+            return await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email&&x.Password==password);
         }
     }
 }

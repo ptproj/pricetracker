@@ -34,7 +34,7 @@ namespace priceTracker.Controllers
         public async Task<ActionResult<DTOLoginCostumer>> Get([FromBody] DTOLoginCostumer dTOLoginCostumer)
         {
 
-            DTOLoginCostumer c =  await costumerbl.get(dTOLoginCostumer.Email);
+            DTOLoginCostumer c =  await costumerbl.get(dTOLoginCostumer.Email,dTOLoginCostumer.Password);
             if (c != null)
                 return c;
             else return NoContent();
