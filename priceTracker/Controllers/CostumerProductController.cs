@@ -36,9 +36,12 @@ namespace priceTracker.Controllers
 
         // POST api/<CostumerProductController>
         [HttpPost]
-        public async Task<Costumerproduct> Post([FromBody] Costumerproduct costumerproduct)
+        public async Task<ActionResult<Costumerproduct>> Post([FromBody] Costumerproduct costumerproduct)
         {
-            return await costumerProductbl.post(costumerproduct);
+            Costumerproduct c=  await costumerProductbl.post(costumerproduct);
+            if (c != null)
+                return c;
+            else return NoContent();
         }
 
         // PUT api/<CostumerProductController>/5

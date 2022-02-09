@@ -27,7 +27,7 @@ namespace DL
         }
         public async Task<Costumer> get(string email)
         {
-            throw new Exception("hjgghj");
+           
             return await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email);
         }
     }
