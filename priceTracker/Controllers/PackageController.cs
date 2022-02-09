@@ -21,9 +21,13 @@ namespace priceTracker.Controllers
         }
         // GET: api/<PackageController>
         [HttpGet]
-        public async Task<List<Package>> Get()
+        public async Task<ActionResult<List<Package>>> Get()
         {
-            return await packagebl.get();
+           List<Package> lp=  await packagebl.get();
+            if (lp != null)
+                return lp;
+            else return NoContent();
+
         }
 
         // GET api/<PackageController>/5

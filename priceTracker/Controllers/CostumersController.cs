@@ -39,9 +39,12 @@ namespace priceTracker.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<Costumer>  Post([FromBody] Costumer costumer)
+        public async Task<ActionResult<Costumer>>  Post([FromBody] Costumer costumer)
         {
-          return await costumerbl.post(costumer);
+            Costumer c= await costumerbl.post(costumer);
+            if (c != null)
+                return c;
+            else return NoContent();
         }
 
         // PUT api/<UserController>/5
