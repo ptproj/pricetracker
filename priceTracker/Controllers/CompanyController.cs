@@ -38,10 +38,12 @@ namespace priceTracker.Controllers
 
         // POST api/<CompanyController>
         [HttpPost]
-        public async Task<Company> Post([FromBody] Company company)
+        public async Task<ActionResult<Company>> Post([FromBody] Company company)
         {
-           return await companybl.post(company);
-
+            Company c =await companybl.post(company);
+            if (c != null)
+                return c;
+            else return NoContent();
         }
 
         // PUT api/<CompanyController>/5

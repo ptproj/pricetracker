@@ -15,9 +15,9 @@ namespace BL
         {
             this.companyproductdl = companyproductdl;
         }
-        public async Task<List<Companyproduct>> get(int companyid)
+        public List<Companyproduct> get(int companyid)
         {
-            return await companyproductdl.get(companyid);
+            return companyproductdl.get(companyid);
         }
         public int getcount(int companyid)
         {

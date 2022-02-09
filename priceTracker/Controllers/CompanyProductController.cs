@@ -28,22 +28,33 @@ namespace priceTracker.Controllers
 
         // GET api/<CompanyProductController>/5
         [HttpGet("{companyid}")]
-        public Task<List<Companyproduct>> Get(int companyid)
+        public ActionResult<List<Companyproduct>> Get(int companyid)
         {
-            return companyproductbl.get(companyid);
+          List<Companyproduct> c= companyproductbl.get(companyid);
+            if (c.Count() > 0)
+                return c;
+            else return NoContent();
         }
 
         [HttpGet("count/{companyid}")]
-        public int Getcount(int companyid)
+        public ActionResult<int> Getcount(int companyid)
         {
-            return companyproductbl.getcount(companyid);
+            int c = -1;
+            c= companyproductbl.getcount(companyid);
+            if (c != -1)
+                return c;
+            else
+                return NoContent();
         }
 
         // POST api/<CompanyProductController>
         [HttpPost]
-        public Task<Companyproduct> Post([FromBody] Companyproduct companyproduct)
+        public async Task<ActionResult<Companyproduct>> Post([FromBody] Companyproduct companyproduct)
         {
-            return companyproductbl.post(companyproduct);
+             Companyproduct c=await companyproductbl.post(companyproduct);
+            if (c != null)
+                return c;
+            else return NoContent();
         }
 
         // PUT api/<CompanyProductController>/5
@@ -62,4 +73,4 @@ namespace priceTracker.Controllers
 
         }
     }
-}/////tttttttkkkk
+}

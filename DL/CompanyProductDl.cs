@@ -15,8 +15,9 @@ namespace DL
         {
             _context = context;
         }
-        public async Task<List<Companyproduct>> get(int companyid)
+        public List<Companyproduct> get(int companyid)
         {
+            
             return _context.Companyproducts.Where(x => x.Companyid == companyid).ToList();
         
         }
