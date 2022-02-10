@@ -120,50 +120,51 @@ namespace priceTracker
         {
 
 
-           // app.UseErrorMiddleware();
+            app.UseErrorMiddleware();
 
             logger.LogInformation("system is up!!");
             if (env.IsDevelopment())
             {
-              //  app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "priceTracker v1"));
             }
 
             app.UseHttpsRedirection();
-          //  app.UseResponseCaching();
+           app.UseResponseCaching();
 
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Response.GetTypedHeaders().CacheControl =
-            //        new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
-            //        {
-            //            Public = true,
-            //            MaxAge = TimeSpan.FromSeconds(60)
-            //        };
-            //    context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
-            //        new string[] { "Accept-Encoding" };
+            app.Use(async (context, next) =>
+            {
+                context.Response.GetTypedHeaders().CacheControl =
+                    new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromSeconds(60)
+                    };
+                context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
+                    new string[] { "Accept-Encoding" };
 
-            //    await next();
-            //});
-           
+                await next();
+            });
+            app.UseAuthentication();
             app.UseRouting();
             app.UseCors("AllowAll");
-            //app.Map("/api", app2 =>
-            //{
-            //    app2.UseRouting();
-            //    app2.UseRatingMiddleware();
+            app.Map("/api", app2 =>
+            {
+                app.UseAuthentication();
+                app2.UseRouting();
+                app2.UseRatingMiddleware();
 
-            //    app2.UseAuthorization();
+                app2.UseAuthorization();
 
-            //    app2.UseEndpoints(endpoints2 =>
-            //    {
-            //        endpoints2.MapControllers();
-            //    });
-            //});
+                app2.UseEndpoints(endpoints2 =>
+                {
+                    endpoints2.MapControllers();
+                });
+            });
 
 
-            //app.UseRatingMiddleware();
+            app.UseRatingMiddleware();
 
             app.UseAuthorization();
 
