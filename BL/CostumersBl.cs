@@ -16,11 +16,13 @@ namespace BL
 {
     public class CostumerBl : ICostumerBl
     {
+        PasswordHashHelper _passwordHashHelper;
         ICostumerDl costumerdl;
         IConfiguration _configuration;
         IMapper _mapper;
-        public CostumerBl(ICostumerDl costumerdl, IConfiguration configuration, IMapper mapper)
+        public CostumerBl(ICostumerDl costumerdl, IConfiguration configuration, IMapper mapper, PasswordHashHelper passwordHashHelper)
         {
+            _passwordHashHelper = passwordHashHelper;
             this.costumerdl = costumerdl;
             this._mapper = mapper;
             this._configuration = configuration;
@@ -28,6 +30,9 @@ namespace BL
 
         public async Task<DTOLoginCostumer> post(Costumer costumer)
         {
+            costumer.Salt = _passwordHashHelper.GenerateSalt(8);
+            costumer.Password = _passwordHashHelper.HashPassword(costumer.Password, costumer.Salt, 1000, 8);
+
             Costumer c= await costumerdl.post(costumer);
             DTOLoginCostumer c1 = _mapper.Map<Costumer, DTOLoginCostumer>(c);
             if (c == null) return null;
@@ -50,6 +55,9 @@ namespace BL
         }
         public async Task<DTOLoginCostumer> get(string email,string password)
         {
+            //string Salt = _passwordHashHelper.GenerateSalt(8);
+            //costumer.Password = _passwordHashHelper.HashPassword(costumer.Password, costumer.Salt, 1000, 8);
+
             Costumer c=await costumerdl.get(email,password);
             DTOLoginCostumer c1 = _mapper.Map<Costumer, DTOLoginCostumer>(c);
             if (c == null) return null;

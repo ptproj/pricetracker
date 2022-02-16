@@ -1,8 +1,7 @@
 ﻿using System;
-using Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using Entity;
 #nullable disable
 
 namespace DL
@@ -58,8 +57,12 @@ namespace DL
 
                 entity.Property(e => e.Passward)
                     .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(50)
                     .HasColumnName("passward");
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(50)
+                    .HasColumnName("salt");
 
                 entity.Property(e => e.Startofsubsciption)
                     .HasColumnType("date")
@@ -120,9 +123,12 @@ namespace DL
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("password")
-                    .IsFixedLength(true);
+                    .HasMaxLength(50)
+                    .HasColumnName("password");
+
+                entity.Property(e => e.Salt)
+                    .HasMaxLength(50)
+                    .HasColumnName("salt");
             });
 
             modelBuilder.Entity<Costumerproduct>(entity =>

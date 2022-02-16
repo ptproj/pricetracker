@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -21,9 +20,8 @@ namespace Entity
         public string Description { get; set; }
         public bool Active { get; set; }
         public string Productlink { get; set; }
-        [JsonIgnore]
+
         public virtual Company Company { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Producttoadvertise> Producttoadvertises { get; set; }
     }
 }
