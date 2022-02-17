@@ -16,17 +16,22 @@ namespace BL
 {
     public class CompanyBl: ICompanyBl
     {
+        IPasswordHashHelper _passwordHashHelper;
         ICompanyDl companydl;
         IConfiguration _configuration;
         IMapper _mapper;
-        public CompanyBl(ICompanyDl companydl, IConfiguration configuration, IMapper mapper)
+        public CompanyBl(ICompanyDl companydl, IConfiguration configuration, IMapper mapper, IPasswordHashHelper passwordHashHelper)
         {
+            _passwordHashHelper = passwordHashHelper;
             _mapper = mapper;
             this._configuration = configuration;
             this.companydl = companydl;
         }
      public async Task<DTOLoginCompany> post(Company company)
         {
+            company.Salt = _passwordHashHelper.GenerateSalt(8);
+            company.Passward = _passwordHashHelper.HashPassword(company.Passward, company.Salt, 1000, 8);
+
             Company c = await companydl.post(company);
             DTOLoginCompany c1 = _mapper.Map<Company, DTOLoginCompany>(c);
             if (c == null) return null;
@@ -47,9 +52,17 @@ namespace BL
             c1.Passward = null;
             return c1;
         }
-        public async Task<DTOLoginCompany> get(string name, string pass)
+        public async Task<DTOLoginCompany> get(string name, string password)
         {
-           Company c= await companydl.get(name, pass);
+            Company c = await companydl.get(name);
+
+            string Hashedpassword = _passwordHashHelper.HashPassword(password, c.Salt, 1000, 8);
+
+            if (Hashedpassword.Equals(c.Passward.TrimEnd()) != true)
+                return null;
+
+
+            
             DTOLoginCompany c1=_mapper.Map<Company,DTOLoginCompany>(c);
             if (c == null) return null;
             // authentication successful so generate jwt token

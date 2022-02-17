@@ -25,9 +25,9 @@ namespace DL
             await _context.SaveChangesAsync();
             return Company;
         }
-        public async Task<Company> get(string name, string pass)
+        public async Task<Company> get(string name)
         {
-            return await _context.Companies.SingleOrDefaultAsync(x => x.Passward == pass && x.Name==name);
+            return await _context.Companies.SingleOrDefaultAsync(x =>  x.Name==name);
         }
         public async Task<bool> put(int packageid,int companyid)
         {

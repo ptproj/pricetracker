@@ -16,11 +16,11 @@ namespace BL
 {
     public class CostumerBl : ICostumerBl
     {
-        PasswordHashHelper _passwordHashHelper;
+        IPasswordHashHelper _passwordHashHelper;
         ICostumerDl costumerdl;
         IConfiguration _configuration;
         IMapper _mapper;
-        public CostumerBl(ICostumerDl costumerdl, IConfiguration configuration, IMapper mapper, PasswordHashHelper passwordHashHelper)
+        public CostumerBl(ICostumerDl costumerdl, IConfiguration configuration, IMapper mapper, IPasswordHashHelper passwordHashHelper)
         {
             _passwordHashHelper = passwordHashHelper;
             this.costumerdl = costumerdl;
@@ -55,10 +55,17 @@ namespace BL
         }
         public async Task<DTOLoginCostumer> get(string email,string password)
         {
-            //string Salt = _passwordHashHelper.GenerateSalt(8);
-            //costumer.Password = _passwordHashHelper.HashPassword(costumer.Password, costumer.Salt, 1000, 8);
+          
 
-            Costumer c=await costumerdl.get(email,password);
+            Costumer c=await costumerdl.get(email);
+
+            string Hashedpassword = _passwordHashHelper.HashPassword(password, c.Salt, 1000, 8);
+
+            if (Hashedpassword.Equals(c.Password.TrimEnd())!=true)
+                    return null;
+                
+               
+
             DTOLoginCostumer c1 = _mapper.Map<Costumer, DTOLoginCostumer>(c);
             if (c == null) return null;
             // authentication successful so generate jwt token
