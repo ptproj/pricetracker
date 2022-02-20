@@ -27,7 +27,7 @@ namespace DL
         }
         public async Task<Company> get(string name)
         {
-            return await _context.Companies.SingleOrDefaultAsync(x =>  x.Name==name);
+            return await _context.Companies.FirstOrDefaultAsync(x =>  x.Name==name);
         }
         public async Task<bool> put(int packageid,int companyid)
         {
