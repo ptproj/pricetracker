@@ -13,7 +13,7 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CostumerProductController : ControllerBase
     {
         ICostumerProductBl costumerProductbl;
@@ -32,8 +32,10 @@ namespace priceTracker.Controllers
         [HttpGet("{id}")]
         public  ActionResult<List<Costumerproduct>> Get(int id)
         {
-           
-            return  costumerProductbl.get(id);
+            int c = id;
+            List < Costumerproduct > l= costumerProductbl.get(id);
+            return l;
+
         }
 
         // POST api/<CostumerProductController>
@@ -54,9 +56,10 @@ namespace priceTracker.Controllers
 
         // DELETE api/<CostumerProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             costumerProductbl.delete(id);
+            return true;
         }
     }
 }
