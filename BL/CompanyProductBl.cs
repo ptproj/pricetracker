@@ -28,9 +28,9 @@ namespace BL
         {
             return await companyproductdl.post(companyproduct);
         }
-        public async Task delete(int id)
+        public async Task<bool> delete(int id)
         {
-            await companyproductdl.delete(id);
+           return await companyproductdl.delete(id);
         }
         public async Task put(Companyproduct companyproduct)
         {

@@ -10,7 +10,7 @@ namespace DL
         public  int getcount(int companyid);
         public Task<Companyproduct> post(Companyproduct companyproduct);
 
-        public  Task delete(int id);
+        public  Task<bool> delete(int id);
 
         public  Task put(Companyproduct companyproduct);
         

@@ -51,11 +51,12 @@ namespace DL
                 }
             catch { return null; }
         }
-        public async Task delete(int id)
+        public async Task<bool> delete(int id)
         {
            Companyproduct c=await _context.Companyproducts.FirstOrDefaultAsync(x => x.Id.Equals(id));
             _context.Remove(c);
             await _context.SaveChangesAsync();
+            return true;
         }
         public async Task put(Companyproduct companyproduct)
         {
