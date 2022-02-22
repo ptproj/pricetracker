@@ -30,7 +30,7 @@ namespace BL
      public async Task<DTOLoginCompany> post(Company company)
         {
             company.Salt = _passwordHashHelper.GenerateSalt(8);
-            company.Passward = _passwordHashHelper.HashPassword(company.Passward, company.Salt, 1000, 8);
+            company.Password = _passwordHashHelper.HashPassword(company.Password, company.Salt, 1000, 8);
 
             Company c = await companydl.post(company);
             DTOLoginCompany c1 = _mapper.Map<Company, DTOLoginCompany>(c);
@@ -49,7 +49,7 @@ namespace BL
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             c1.Token = tokenHandler.WriteToken(token);
-            c1.Passward = null;
+            c1.Password = null;
             return c1;
         }
         public async Task<DTOLoginCompany> get(string name, string password)
@@ -58,7 +58,7 @@ namespace BL
 
             string Hashedpassword = _passwordHashHelper.HashPassword(password, c.Salt, 1000, 8);
 
-            if (Hashedpassword.Equals(c.Passward.TrimEnd()) != true)
+            if (Hashedpassword.Equals(c.Password.TrimEnd()) != true)
                 return null;
 
 
@@ -79,7 +79,7 @@ namespace BL
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             c1.Token = tokenHandler.WriteToken(token);
-            c1.Passward = null;
+            c1.Password = null;
             return c1;
         }
         public async Task<bool> put(int packageid, int companyid)

@@ -35,7 +35,7 @@ namespace priceTracker.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<DTOLoginCompany>>Get([FromBody] DTOLoginCompany dTOLoginCompany)
         {
-            DTOLoginCompany c= await companybl.get(dTOLoginCompany.Name, dTOLoginCompany.Passward);
+            DTOLoginCompany c= await companybl.get(dTOLoginCompany.Name, dTOLoginCompany.Password);
             
             if (c!=null)
                 return c;
@@ -46,6 +46,7 @@ namespace priceTracker.Controllers
         [HttpPost]
         public async Task<ActionResult<DTOLoginCompany>> Post([FromBody] Company company)
         {
+
             DTOLoginCompany c =await companybl.post(company);
             if (c != null)
                 return c;

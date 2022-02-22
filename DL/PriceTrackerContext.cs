@@ -55,10 +55,10 @@ namespace DL
 
                 entity.Property(e => e.Packageid).HasColumnName("packageid");
 
-                entity.Property(e => e.Passward)
+                entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .HasColumnName("passward");
+                    .HasColumnName("password");
 
                 entity.Property(e => e.Salt)
                     .HasMaxLength(50)
