@@ -17,9 +17,9 @@ namespace DL
         }
         public async Task<Company> post(Company Company)
         {
-            if (await _context.Companies.SingleOrDefaultAsync(x => x.Password == Company.Password && x.Name == Company.Name) != null)
+            if (await _context.Companies.SingleOrDefaultAsync(x => x.Name == Company.Name) != null)
             {
-                throw new Exception("there is a company with the same name and password");
+                throw new Exception("there is a company with the same name");
             }
             await _context.Companies.AddAsync(Company);
             await _context.SaveChangesAsync();
