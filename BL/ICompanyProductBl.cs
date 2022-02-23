@@ -12,6 +12,6 @@ namespace BL
         public  Task<Companyproduct> post(Companyproduct companyproduct);
 
         public Task<bool> delete(int id);
-        public Task put(Companyproduct companyproduct);
+        public Task<Companyproduct> put(Companyproduct companyproduct);
     }
 }

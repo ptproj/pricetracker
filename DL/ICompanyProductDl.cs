@@ -12,7 +12,7 @@ namespace DL
 
         public  Task<bool> delete(int id);
 
-        public  Task put(Companyproduct companyproduct);
+        public Task<Companyproduct> put(Companyproduct companyproduct);
         
     }
 }
