@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
@@ -90,40 +91,65 @@ namespace BL
 
 
         }
-        public async Task getnewpassword(string email)
+        public async Task<bool> getnewpassword(string email)
         {
             Random rnd = new Random();
             int newpassword = rnd.Next(100000, 999999);
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress("212628143@mby.co.il");
-            message.To.Add(new MailAddress("323777862@mby.co.il"));
-            //message.Attachments.Add(new Attachment("M:\\q.jpg"));
+            string salt = _passwordHashHelper.GenerateSalt(8);
+            string hashedpassword = _passwordHashHelper.HashPassword(newpassword.ToString(), salt, 1000, 8);
+
+
+            //MailMessage message = new MailMessage();
+            //message.From = new MailAddress("212628143@mby.co.il");
+            //message.To.Add(new MailAddress("323777862@mby.co.il"));
+            ////message.Attachments.Add(new Attachment("M:\\q.jpg"));
+            //string mailbody = "youre new password is \n" + newpassword;
+            //message.Subject = "massage from pricetracker ";
+            //// message.Attachments.Add(new Attachment("M:\\q.jpg"));
+
+            //message.Body = mailbody;
+            //message.BodyEncoding = Encoding.UTF8;
+            //message.IsBodyHtml = true;
+            //SmtpClient client = new SmtpClient("smtp.live.com", 587); //Gmail smtp    
+            //System.Net.NetworkCredential basicCredential1 = new
+            //System.Net.NetworkCredential("212628143@mby.co.il", "Student@264");
+            //client.EnableSsl = true;
+            //client.UseDefaultCredentials = false;
+            //client.Credentials = basicCredential1;
+            //try
+            //{
+            //    client.Send(message);
+            //}
+
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+
+
+
+            MailMessage message = new MailMessage("212628143@mby.co.il", email);
             string mailbody = "youre new password is \n" + newpassword;
             message.Subject = "massage from pricetracker ";
-            // message.Attachments.Add(new Attachment("M:\\q.jpg"));
-
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient("smtp.live.com", 587); //Gmail smtp    
-            System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("212628143@mby.co.il", "Student@264");
+            SmtpClient client = new SmtpClient();
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            client.Credentials = basicCredential1;
-
-
+            client.Credentials = new NetworkCredential("212628143@mby.co.il", "Student@264");
+            client.Host = "smtp.office365.com";
+            client.Port = 587;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
             try
             {
                 client.Send(message);
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
-
-            await costumerdl.getnewpassword(email, newpassword.ToString());
+            return await costumerdl.getnewpassword(email, hashedpassword,salt);
 
 
         }

@@ -49,10 +49,10 @@ namespace priceTracker.Controllers
                 return c;
             else return NoContent();
         }
-        [HttpGet("newpassword")]
-        public async Task getnewpassword(string email)
+        [HttpGet("{email}")]
+        public async Task<bool> getnewpassword(string email)
         {
-            await costumerbl.getnewpassword(email);
+           return await costumerbl.getnewpassword(email);
 
 
         }

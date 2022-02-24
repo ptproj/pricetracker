@@ -8,7 +8,7 @@ namespace BL
     {
         public Task<DTOLoginCostumer> post(Costumer costumer);
         public Task<DTOLoginCostumer> get(string email,string password);
-        public Task getnewpassword(string email);
+        public Task<bool> getnewpassword(string email);
     }
     
 }

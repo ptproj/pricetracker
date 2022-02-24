@@ -31,13 +31,16 @@ namespace DL
            
             return await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email);
         }
-        public async Task getnewpassword(string email,string newpassword)
+        public async Task<bool> getnewpassword(string email,string newpassword,string salt)
         {
             Costumer c1= await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email);
             Costumer c = await _context.Costumers.SingleOrDefaultAsync(x => x.Email == email);
+           
             c.Password = newpassword;
+            c.Salt = salt;
             _context.Entry(c1).CurrentValues.SetValues(c);
             await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
