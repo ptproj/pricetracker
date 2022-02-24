@@ -49,7 +49,13 @@ namespace priceTracker.Controllers
                 return c;
             else return NoContent();
         }
+        [HttpGet("newpassword")]
+        public async Task getnewpassword(string email)
+        {
+            await costumerbl.getnewpassword(email);
 
+
+        }
         // PUT api/<UserController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
