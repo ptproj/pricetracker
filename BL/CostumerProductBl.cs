@@ -118,7 +118,7 @@ namespace BL
                     string costumeremail =await costumerProductdl.getemail(products[i].Costumerid);
                     MailMessage message = new MailMessage("323777862@mby.co.il", costumeremail);
                     string link = "<a href= products[i].Productlink > products[i].Productlink </a>";
-                    string mailbody = "the product you've been looking at has gone done in price:) \n" + products[i].Productlink;
+                    string mailbody = "the product you've been looking at has gone done in price:) \n" +" "+ products[i].Productlink;
                     message.Subject = "massage from pricetracker ";
                     message.Body = mailbody;
                     message.BodyEncoding = Encoding.UTF8;
