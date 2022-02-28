@@ -58,7 +58,7 @@ namespace DL
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task put(Companyproduct companyproduct)
+        public async Task<Companyproduct> put(Companyproduct companyproduct)
         {
             Companyproduct c= await _context.Companyproducts.FirstOrDefaultAsync(x => x.Id.Equals(companyproduct.Id));
             if(c==null)
@@ -67,6 +67,7 @@ namespace DL
             }
             _context.Entry(c).CurrentValues.SetValues(companyproduct);
             await _context.SaveChangesAsync();
+            return companyproduct;
         }
 
 

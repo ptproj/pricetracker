@@ -32,9 +32,9 @@ namespace BL
         {
            return await companyproductdl.delete(id);
         }
-        public async Task put(Companyproduct companyproduct)
+        public async Task<Companyproduct> put(Companyproduct companyproduct)
         {
-            await companyproductdl.put(companyproduct);
+           return await companyproductdl.put(companyproduct);
         }
 
 

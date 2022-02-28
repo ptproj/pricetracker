@@ -35,7 +35,8 @@ namespace priceTracker.Controllers
           List<Companyproduct> c= companyproductbl.get(companyid);
             if (c.Count() > 0)
                 return c;
-            else return NoContent();
+            else return new List<Companyproduct>();
+             //       NoContent();
         }
 
         [HttpGet("count/{companyid}")]
@@ -61,9 +62,9 @@ namespace priceTracker.Controllers
 
         // PUT api/<CompanyProductController>/5
         [HttpPut]
-        public async Task Put( [FromBody] Companyproduct companyproduct)
+        public async Task<Companyproduct> Put( [FromBody] Companyproduct companyproduct)
         {
-            await companyproductbl.put(companyproduct);
+          return await companyproductbl.put(companyproduct);
 
         }
 

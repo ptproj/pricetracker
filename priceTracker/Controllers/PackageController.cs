@@ -13,7 +13,7 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class PackageController : ControllerBase
     {
         IPackageBl packagebl;
@@ -22,8 +22,8 @@ namespace priceTracker.Controllers
             this.packagebl = packagebl;
         }
         // GET: api/<PackageController>
-        [HttpGet]
-        public async Task<ActionResult<List<Package>>> Get()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<Package>>> Get(int id)
         {
            List<Package> lp=  await packagebl.get();
             if (lp != null)
