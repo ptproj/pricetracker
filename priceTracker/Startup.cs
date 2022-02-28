@@ -64,8 +64,8 @@ namespace priceTracker
                     .AllowAnyMethod();
                 });
             });
-                services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
-            Configuration.GetConnectionString("priceTracker")));
+            services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
+        Configuration.GetConnectionString("priceTracker")));
             //, ServiceLifetime.Scoped
             services.AddScoped<ICostumerDl, CostumerDl>();
             services.AddScoped<ICostumerBl, CostumerBl>();
@@ -108,14 +108,9 @@ namespace priceTracker
                     }
                 });
             });
-            
-                TimerCallback callback = (x) => {
-                };
-                int intervalInMS = 2 * 60 * 60 * 1000;  // every 2 hours. 
-                Timer timer = new Timer(callback, state: null, dueTime: intervalInMS, period: intervalInMS);
-            
-        }
 
+
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {

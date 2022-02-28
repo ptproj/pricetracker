@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BL;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +15,32 @@ namespace priceTracker.Controllers
     [ApiController]
     public class TrackController : ControllerBase
     {
+        ICostumerProductBl costumerproductbl;
+        public TrackController(ICostumerProductBl costumerproductbl)
+        {
+            this.costumerproductbl = costumerproductbl;
+        }
         // GET: api/<TrackController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public int Get()
         {
-            return new string[] { "value1", "value2" };
+            //System.Timers.Timer aTimer = new System.Timers.Timer(60 * 1000); //one hour in milliseconds
+            // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //aTimer.Start();
+            // void OnTimedEvent(object source, ElapsedEventArgs e)
+            //{
+                costumerproductbl.trackprice();
+            //}
+
+            //TimerCallback callback = (x) =>
+            //{
+            //    costumerproductbl.trackprice();
+            //};
+            //int intervalInMS = 2 * 60 * 60 * 1000;  // every 2 hours. 
+            //Timer timer = new Timer(callback, state: null, dueTime: intervalInMS, period: intervalInMS);
+            return 1;
+
+
         }
 
         // GET api/<TrackController>/5
