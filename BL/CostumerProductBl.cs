@@ -106,45 +106,41 @@ namespace BL
         public async void trackprice()
         {
             List<Costumerproduct> products = costumerProductdl.getall();
+            List<Costumerproduct> products_put =new List<Costumerproduct>();
             for(int i=0;i<products.Count;i++)
             {
                 int price = getprice(products[i].Productlink);
-                if (products[i].Finalprice>price)
+                if (products[i].Finalprice>=price)
                 {
                     products[i].Finalprice = price;
-                    await costumerProductdl.put(products[i]);
+                    //await costumerProductdl.put(products[i]);
+                    products_put.Add(products[i]);
                     string costumeremail =await costumerProductdl.getemail(products[i].Costumerid);
-                    MailMessage message = new MailMessage();
-                    message.From = new MailAddress("ourpricetracker@gmail.com");
-                    message.To.Add(new MailAddress(costumeremail));
-                    //message.Attachments.Add(new Attachment("M:\\q.jpg"));
-                    string mailbody = "the product you've been looking at has gone done in price:) \n"+products[i].Productlink;
-                    //string link = "<a href= https://localhost:44369/swagger/index.html > enter to match  </a>";
+                    MailMessage message = new MailMessage("323777862@mby.co.il", costumeremail);
+                    string link = "<a href= products[i].Productlink > products[i].Productlink </a>";
+                    string mailbody = "the product you've been looking at has gone done in price:) \n" + products[i].Productlink;
                     message.Subject = "massage from pricetracker ";
-                    // message.Attachments.Add(new Attachment("M:\\q.jpg"));
-
                     message.Body = mailbody;
                     message.BodyEncoding = Encoding.UTF8;
                     message.IsBodyHtml = true;
-                    SmtpClient client = new SmtpClient("smtp.live.com", 587); //Gmail smtp    
-                    System.Net.NetworkCredential basicCredential1 = new
-                    System.Net.NetworkCredential("ourpricetracker@gmail.com", "srv35-3-2");
+                    SmtpClient client = new SmtpClient();
                     client.EnableSsl = true;
                     client.UseDefaultCredentials = false;
-                    client.Credentials = basicCredential1;
-
-
+                    client.Credentials = new NetworkCredential("323777862@mby.co.il", "Student@264");
+                    client.Host = "smtp.office365.com";
+                    client.Port = 587;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
                     try
                     {
                         client.Send(message);
                     }
-
                     catch (Exception ex)
                     {
                         throw ex;
                     }
                 }
             }
+            costumerProductdl.putAll(products_put);
             }
 
         }
