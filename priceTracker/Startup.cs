@@ -65,7 +65,7 @@ namespace priceTracker
                 });
             });
             services.AddDbContext<PriceTrackerContext>(options => options.UseSqlServer(
-        Configuration.GetConnectionString("priceTracker")));
+        Configuration.GetConnectionString("priceTracker")),ServiceLifetime.Singleton);
             //, ServiceLifetime.Scoped
             services.AddScoped<ICostumerDl, CostumerDl>();
             services.AddScoped<ICostumerBl, CostumerBl>();
