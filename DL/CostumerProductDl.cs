@@ -42,13 +42,7 @@ namespace DL
             _context.Entry(c).CurrentValues.SetValues(costumerproduct);
             await _context.SaveChangesAsync();
         }
-        public async Task putAll(List<Costumerproduct> products)
-        {
-            for(int i=0;i<products.Count();i++)
-            {
-                put(products[i]);
-            }
-        }
+        
 
         public List<Costumerproduct> getall() {
             return _context.Costumerproducts.ToList();

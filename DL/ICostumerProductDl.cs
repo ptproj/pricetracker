@@ -11,7 +11,6 @@ namespace DL
         public Task<Costumerproduct> post(Costumerproduct costumerproduct);
         public void delete(int id);
         public Task put(Costumerproduct costumerproduct);
-        public Task putAll(List<Costumerproduct> products);
         public List<Costumerproduct> getall();
         public Task<string> getemail(int costumerid);
 

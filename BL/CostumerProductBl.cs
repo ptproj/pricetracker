@@ -106,15 +106,14 @@ namespace BL
         public async void trackprice()
         {
             List<Costumerproduct> products = costumerProductdl.getall();
-            List<Costumerproduct> products_put =new List<Costumerproduct>();
+            
             for(int i=0;i<products.Count;i++)
             {
                 int price = getprice(products[i].Productlink);
                 if (products[i].Finalprice>=price)
                 {
                     products[i].Finalprice = price;
-                    //await costumerProductdl.put(products[i]);
-                    products_put.Add(products[i]);
+                    await costumerProductdl.put(products[i]);
                     string costumeremail =await costumerProductdl.getemail(products[i].Costumerid);
                     MailMessage message = new MailMessage("323777862@mby.co.il", costumeremail);
                     string link = "<a href= products[i].Productlink > products[i].Productlink </a>";
@@ -140,7 +139,6 @@ namespace BL
                     }
                 }
             }
-            costumerProductdl.putAll(products_put);
             }
 
         }
