@@ -49,7 +49,7 @@ namespace BL
             response2.Close();
             int start2 = responseFromServer2.IndexOf("[");
             int end2 = responseFromServer2.IndexOf("]");
-            string desc=responseFromServer2.Substring(start2+2, end2 - start2 - 1);
+            string desc=responseFromServer2.Substring(start2+2, end2 - start2 - 2);
             costumerproduct.Description = desc;
             return await costumerProductdl.post(costumerproduct);
 
