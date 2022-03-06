@@ -72,7 +72,8 @@ namespace priceTracker.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Delete(int id)
         {
-           return await companyproductbl.delete(id);
+          await companyproductbl.delete(id);
+            return true;
 
         }
     }
