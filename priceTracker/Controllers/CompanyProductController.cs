@@ -1,9 +1,11 @@
 ﻿using BL;
 using Entity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,12 +54,20 @@ namespace priceTracker.Controllers
 
         // POST api/<CompanyProductController>
         [HttpPost]
-        public async Task<ActionResult<Companyproduct>> Post([FromBody] Companyproduct companyproduct)
+        public async Task<ActionResult<Companyproduct>> Post([FromForm] IFormFile file/*,[FromBody] Companyproduct companyproduct*/)
         {
-             Companyproduct c=await companyproductbl.post(companyproduct);
-            if (c != null)
-                return c;
-            else return NoContent();
+            string filePath = Path.GetFullPath("Images/" + file.FileName);
+
+            using (var stream = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(stream);
+            }
+            //Companyproduct c = await companyproductbl.post(companyproduct);
+            //if (c != null)
+            //    return c;
+            //else
+            
+            return NoContent();
         }
 
         // PUT api/<CompanyProductController>/5
