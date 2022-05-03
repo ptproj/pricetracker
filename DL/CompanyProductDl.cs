@@ -37,10 +37,10 @@ namespace DL
         public async Task<Companyproduct> post(Companyproduct companyproduct)
         {
             try { 
-            int count = _context.Companyproducts.Where(x => x.Companyid == companyproduct.Companyid).Count();
-            //int Packageid = (int)_context.Companies.Where(x => x.Id == companyproduct.Companyid).FirstOrDefault().Packageid;
-           // int numproductsamount = _context.Packages.Where(x => x.Id == Packageid).FirstOrDefault().Productsamount;
-            //if(count< numproductsamount)
+            int count = _context.Companyproducts.Where(x => x.Companyid == companyproduct.Companyid&&x.Active==true).Count();
+            int Packageid = (int)_context.Companies.Where(x => x.Id == companyproduct.Companyid).FirstOrDefault().Packageid;
+            int numproductsamount = _context.Packages.Where(x => x.Id == Packageid).FirstOrDefault().Productsamount;
+            if(count< numproductsamount)
             {
                 _context.Companyproducts.Add(companyproduct);
                 await _context.SaveChangesAsync();
