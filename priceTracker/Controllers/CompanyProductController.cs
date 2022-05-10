@@ -53,23 +53,34 @@ namespace priceTracker.Controllers
         }
 
         // POST api/<CompanyProductController>
-        [HttpPost]
-        public async Task<ActionResult<Companyproduct>> Post([FromForm] IFormFile file/*,[FromBody] Companyproduct companyproduct*/)
+        [HttpPost("image")]
+        public async Task<string> Post([FromForm] IFormFile file/*,[FromBody] Companyproduct companyproduct*/)
         {
             string filePath = Path.GetFullPath("Images/" + file.FileName);
 
             using (var stream = System.IO.File.Create(filePath))
             {
-                await file.CopyToAsync(stream);
+               await file.CopyToAsync(stream);
             }
             //Companyproduct c = await companyproductbl.post(companyproduct);
             //if (c != null)
             //    return c;
             //else
             
-            return NoContent();
+            return filePath;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Companyproduct>> Post([FromBody] Companyproduct companyproduct)
+        {
+
+            Companyproduct c = await companyproductbl.post(companyproduct);
+            if (c != null)
+                return c;
+            else
+
+                return NoContent();
+        }
         // PUT api/<CompanyProductController>/5
         [HttpPut]
         public async Task<Companyproduct> Put( [FromBody] Companyproduct companyproduct)
