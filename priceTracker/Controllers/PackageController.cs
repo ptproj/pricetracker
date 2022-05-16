@@ -13,7 +13,6 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
     public class PackageController : ControllerBase
     {
         IPackageBl packagebl;

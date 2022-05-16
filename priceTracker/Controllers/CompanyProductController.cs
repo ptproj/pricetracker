@@ -15,7 +15,7 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CompanyProductController : ControllerBase
     {
         ICompanyProductBl companyproductbl;

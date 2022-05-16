@@ -55,7 +55,7 @@ namespace priceTracker.Controllers
 
         // PUT api/<CompanyController>/5
         [HttpPut("{packageid}/{companyid}")]
-       // [Authorize]
+        [Authorize]
 
         public async Task<bool> put(int packageid, int companyid)
         {
