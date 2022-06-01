@@ -13,6 +13,8 @@ namespace DL
         public  Task<bool> delete(int id);
 
         public Task<Companyproduct> put(Companyproduct companyproduct);
-        
+        public List<Costumerproduct> findSimilarProduct();
+
+
     }
 }

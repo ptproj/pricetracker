@@ -75,6 +75,8 @@ namespace priceTracker.Controllers
         {
 
             Companyproduct c = await companyproductbl.post(companyproduct);
+            companyproductbl.findSimilarProduct(companyproduct);
+
             if (c != null)
                 return c;
             else

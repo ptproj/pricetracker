@@ -151,38 +151,39 @@ namespace BL
             Companyproducts_desc.Add(costumerproduct.Description);
 
 
+            //using WebRequest
+            WebRequest request;
+            request = WebRequest.Create("http://127.0.0.1:9007/startModel");
 
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:9007/startModel");
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            //
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            
+            string responseFromServer = string.Empty;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 string json = JsonSerializer.Serialize(Companyproducts_desc);
 
                 streamWriter.Write(json);
             }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            WebResponse response = request.GetResponse();
+            using (Stream dataStream = response.GetResponseStream())
             {
-                var result = streamReader.ReadToEnd();
+                // Open the stream using a StreamReader for easy access.
+                StreamReader reader = new StreamReader(dataStream);
+                // Read the content.
+                reader.ToString();
+                responseFromServer = reader.ReadToEnd();
+                // Display the content.
+                Console.WriteLine(responseFromServer);
+
+
             }
+            //טיפול בתשובה שחזרה מהשרת
+            response.Close();
 
-            //_client = new HttpClient
-            //{
-            //    BaseAddress = new
-            //Uri("http://mypythonapi.azurewebsites.net")
-            //};
-            //_client.DefaultRequestHeaders.Clear();
-            //_client.DefaultRequestHeaders.Accept.Clear();
-            //_client.DefaultRequestHeaders.Accept.Add(
-            //                new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //var response = await _client.PostAsJsonAsync("/insertPersonNode",
-            //json);
-            //var message = response.IsSuccessStatusCode ? "Data posted" : $"Failed to post data. Status code:{response.StatusCode}";
+
 
         }
         }

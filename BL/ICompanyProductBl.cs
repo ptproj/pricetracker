@@ -13,5 +13,7 @@ namespace BL
 
         public Task<bool> delete(int id);
         public Task<Companyproduct> put(Companyproduct companyproduct);
+        public void findSimilarProduct(Companyproduct companyproduct);
+
     }
 }

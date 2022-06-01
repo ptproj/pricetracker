@@ -69,6 +69,12 @@ namespace DL
             await _context.SaveChangesAsync();
             return companyproduct;
         }
+        public List<Costumerproduct> findSimilarProduct()
+        {
+
+            List<Costumerproduct> costumerProduct = _context.Costumerproducts.ToList();
+            return costumerProduct;
+        }
 
 
     }
