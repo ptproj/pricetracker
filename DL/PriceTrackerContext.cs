@@ -1,7 +1,8 @@
-﻿using System;
+﻿
+using Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Entity;
+
 #nullable disable
 
 namespace DL
@@ -30,7 +31,7 @@ namespace DL
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=srv2\\pupils;Database=PriceTracker;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=srv2\\PUPILS;Database=PriceTracker;Trusted_Connection=True;");
             }
         }
 
@@ -77,6 +78,8 @@ namespace DL
             modelBuilder.Entity<Companyproduct>(entity =>
             {
                 entity.ToTable("companyproducts");
+
+                entity.HasIndex(e => e.Companyid, "NonClusteredIndex-20220524-142131");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -135,6 +138,8 @@ namespace DL
             {
                 entity.ToTable("costumerproduct");
 
+                entity.HasIndex(e => e.Costumerid, "NonClusteredIndex-20220524-142651");
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Baseprice).HasColumnName("baseprice");
@@ -179,17 +184,20 @@ namespace DL
 
                 entity.Property(e => e.Companyproductid).HasColumnName("companyproductid");
 
-                entity.Property(e => e.Costumerproductid).HasColumnName("costumerproductid");
+                entity.Property(e => e.Costumertid).HasColumnName("costumertid");
+
+                entity.Property(e => e.Sentbyemail).HasColumnName("sentbyemail");
 
                 entity.HasOne(d => d.Companyproduct)
                     .WithMany(p => p.Producttoadvertises)
                     .HasForeignKey(d => d.Companyproductid)
                     .HasConstraintName("FK_producttoadvertise_companyproducts");
 
-                entity.HasOne(d => d.Costumerproduct)
+                entity.HasOne(d => d.Costumert)
                     .WithMany(p => p.Producttoadvertises)
-                    .HasForeignKey(d => d.Costumerproductid)
-                    .HasConstraintName("FK_producttoadvertise_costumerproduct");
+                    .HasForeignKey(d => d.Costumertid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_producttoadvertise_costumer");
             });
 
             modelBuilder.Entity<Rating>(entity =>

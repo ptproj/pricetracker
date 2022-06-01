@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -10,10 +9,10 @@ namespace Entity
     {
         public int Id { get; set; }
         public int Companyproductid { get; set; }
-        public int Costumerproductid { get; set; }
-        [JsonIgnore]
+        public int Costumertid { get; set; }
+        public bool Sentbyemail { get; set; }
+
         public virtual Companyproduct Companyproduct { get; set; }
-        [JsonIgnore]
-        public virtual Costumerproduct Costumerproduct { get; set; }
+        public virtual Costumer Costumert { get; set; }
     }
 }

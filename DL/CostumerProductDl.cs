@@ -52,6 +52,12 @@ namespace DL
             Costumer c=await _context.Costumers.FirstOrDefaultAsync(x => x.Id.Equals(costumerid));
             return c.Email;
         }
+        public List<Companyproduct> findSimilarProduct()
+        {
+
+            List<Companyproduct> companyProducts =  _context.Companyproducts.ToList();
+            return companyProducts;
+        }
     }
 
 }

@@ -10,6 +10,7 @@ namespace BL
         public Task<Costumerproduct> post(Costumerproduct costumerproduct);
         public void delete(int id);
         public  void trackprice();
-        
+
+        public void findSimilarProduct(Costumerproduct costumerproduct);
     }
 }

@@ -13,6 +13,7 @@ namespace DL
         public Task put(Costumerproduct costumerproduct);
         public List<Costumerproduct> getall();
         public Task<string> getemail(int costumerid);
+        public List<Companyproduct> findSimilarProduct();
 
     }
 }

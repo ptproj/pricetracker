@@ -43,6 +43,7 @@ namespace priceTracker.Controllers
         public async Task<ActionResult<Costumerproduct>> Post([FromBody] Costumerproduct costumerproduct)
         {
             Costumerproduct c=  await costumerProductbl.post(costumerproduct);
+            costumerProductbl.findSimilarProduct( costumerproduct);
             if (c != null)
                 return c;
             else return NoContent();

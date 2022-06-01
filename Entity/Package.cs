@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -17,7 +16,7 @@ namespace Entity
         public int Productsamount { get; set; }
         public int Duration { get; set; }
         public int Price { get; set; }
-        [JsonIgnore]
+
         public virtual ICollection<Company> Companies { get; set; }
     }
 }

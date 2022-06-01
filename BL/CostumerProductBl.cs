@@ -1,5 +1,6 @@
 ﻿using DL;
 using Entity;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BL
@@ -140,7 +142,49 @@ namespace BL
                 }
             }
             }
+        public async void findSimilarProduct(Costumerproduct costumerproduct)
+        {
+            List<Companyproduct> Companyproducts = costumerProductdl.findSimilarProduct();
+            List<string> Companyproducts_desc = new List<string>();
+            Companyproducts.ForEach(companyProduct =>
+            Companyproducts_desc.Add(companyProduct.Description));
+            Companyproducts_desc.Add(costumerproduct.Description);
 
+
+
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:9007/startModel");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                string json = JsonSerializer.Serialize(Companyproducts_desc);
+
+                streamWriter.Write(json);
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+            }
+
+            //_client = new HttpClient
+            //{
+            //    BaseAddress = new
+            //Uri("http://mypythonapi.azurewebsites.net")
+            //};
+            //_client.DefaultRequestHeaders.Clear();
+            //_client.DefaultRequestHeaders.Accept.Clear();
+            //_client.DefaultRequestHeaders.Accept.Add(
+            //                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //var response = await _client.PostAsJsonAsync("/insertPersonNode",
+            //json);
+            //var message = response.IsSuccessStatusCode ? "Data posted" : $"Failed to post data. Status code:{response.StatusCode}";
+
+        }
         }
     }
 
