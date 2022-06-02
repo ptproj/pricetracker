@@ -177,13 +177,9 @@ namespace BL
                 // Display the content.
                 Console.WriteLine(responseFromServer);
 
-
             }
             //טיפול בתשובה שחזרה מהשרת
             response.Close();
-
-
-
 
         }
         }
