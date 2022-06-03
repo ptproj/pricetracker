@@ -1,4 +1,5 @@
-﻿using Entity;
+﻿using BL;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,14 @@ namespace priceTracker.Controllers
     [ApiController]
     public class ProductToAdveriseController : ControllerBase
     {
+        IProductToAdvertiseBL productToAdvertisebl;
+    
+        public ProductToAdveriseController(IProductToAdvertiseBL productToAdvertisebl)
+        {
+            this.productToAdvertisebl = productToAdvertisebl;
+        }
         // GET: api/<ProductToAdveriseController>
-        [HttpGet]
+        //[HttpGet]
         //public IEnumerable<string> Get()
         //{
         //    return new string[] { "value1", "value2" };
@@ -22,10 +29,12 @@ namespace priceTracker.Controllers
 
         // GET api/<ProductToAdveriseController>/5
         [HttpGet("{id}")]
-        public ActionResult<List<Companyproduct>> Get(int costumerid)
+        public async Task<ActionResult<List<Companyproduct>>> Get(int costumerid)
         {
+           
+            List<Companyproduct> l =await productToAdvertisebl.get(costumerid);
+            return l;
 
-            //return "value";
         }
       
         // POST api/<ProductToAdveriseController>

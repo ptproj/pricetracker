@@ -78,6 +78,8 @@ namespace priceTracker
             services.AddScoped<ICostumerProductBl, CostumerProductBl>();
             services.AddScoped<ICostumerProductDl, CostumerProductDl>();
             services.AddScoped<IPasswordHashHelper, PasswordHashHelper>();
+            services.AddScoped<IProductToAdvertiseBL, ProductToAdvertiseBL>();
+            services.AddScoped<IProductToAdvertiseDL, ProductToAdvertiseDL>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>

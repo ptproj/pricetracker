@@ -1,6 +1,13 @@
-﻿namespace BL
+﻿using Entity;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace BL
 {
-    internal interface IProductToAdvertiseBL
+    public interface IProductToAdvertiseBL
     {
+
+        public Task<List<Companyproduct>> get(int costumerid);
+
     }
 }
