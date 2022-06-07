@@ -13,7 +13,7 @@ namespace priceTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CostumerProductController : ControllerBase
     {
         ICostumerProductBl costumerProductbl;
