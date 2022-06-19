@@ -1,4 +1,6 @@
-﻿using DL;
+﻿using AutoMapper;
+using DL;
+using DTO;
 using Entity;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,26 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-   public class CompanyProductBl: ICompanyProductBl
+    public class CompanyProductBl : ICompanyProductBl
     {
         ICompanyProductDl companyproductdl;
-        public CompanyProductBl(ICompanyProductDl companyproductdl)
+        IMapper _mapper;
+        public CompanyProductBl(ICompanyProductDl companyproductdl, IMapper mapper)
         {
             this.companyproductdl = companyproductdl;
+            this._mapper = mapper;
         }
-        public List<Companyproduct> get(int companyid)
+        public List<DTOCompanyproduct> get(int companyid)
         {
-            return companyproductdl.get(companyid);
+            var cpLst = companyproductdl.get(companyid);
+            var cpDto = _mapper.Map<List<Companyproduct>, List<DTOCompanyproduct>>(cpLst);
+            foreach (var cp in cpDto)
+            {
+                string path = Path.GetFullPath("Images/" + cp.Image);
+                var array = File.ReadAllBytes(path);
+                cp.ImageContent = Convert.ToBase64String(array, 0, array.Length);
+            }
+            return cpDto;
         }
         public int getcount(int companyid)
         {
@@ -33,11 +45,11 @@ namespace BL
         }
         public async Task<bool> delete(int id)
         {
-           return await companyproductdl.delete(id);
+            return await companyproductdl.delete(id);
         }
         public async Task<Companyproduct> put(Companyproduct companyproduct)
         {
-           return await companyproductdl.put(companyproduct);
+            return await companyproductdl.put(companyproduct);
         }
 
         public async void findSimilarProduct(Companyproduct companyproduct)

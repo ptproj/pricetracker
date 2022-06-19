@@ -14,6 +14,7 @@ namespace priceTracker
         {
             CreateMap<Company, DTOLoginCompany>();
             CreateMap<Costumer, DTOLoginCostumer>();
+            CreateMap<Companyproduct, DTOCompanyproduct>();
 
         }
         

@@ -1,4 +1,5 @@
 ﻿using BL;
+using DTO;
 using Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,7 @@ namespace priceTracker.Controllers
         ICompanyProductBl companyproductbl;
         public CompanyProductController(ICompanyProductBl companyproductbl)
         {
-         this.companyproductbl = companyproductbl;
+            this.companyproductbl = companyproductbl;
         }
         // GET: api/<CompanyProductController>
         //[HttpGet]
@@ -32,20 +33,21 @@ namespace priceTracker.Controllers
 
         // GET api/<CompanyProductController>/5
         [HttpGet("{companyid}")]
-        public ActionResult<List<Companyproduct>> Get(int companyid)
+        public ActionResult<List<DTOCompanyproduct>> Get(int companyid)
         {
-          List<Companyproduct> c= companyproductbl.get(companyid);
-            if (c.Count() > 0)
+
+            List<DTOCompanyproduct> c = companyproductbl.get(companyid);
+            if (c.Count > 0)
                 return c;
-            else return new List<Companyproduct>();
-             //       NoContent();
+            else return new List<DTOCompanyproduct>();
+            //       NoContent();
         }
 
         [HttpGet("count/{companyid}")]
         public ActionResult<int> Getcount(int companyid)
         {
             int c = -1;
-            c= companyproductbl.getcount(companyid);
+            c = companyproductbl.getcount(companyid);
             if (c != -1)
                 return c;
             else
@@ -54,20 +56,27 @@ namespace priceTracker.Controllers
 
         // POST api/<CompanyProductController>
         [HttpPost("image")]
-        public async Task<string> Post([FromForm] IFormFile file/*,[FromBody] Companyproduct companyproduct*/)
+        public async Task<bool> PostImage([FromForm] IFormFile file/*,[FromBody] Companyproduct companyproduct*/)
         {
             string filePath = Path.GetFullPath("Images/" + file.FileName);
-
-            using (var stream = System.IO.File.Create(filePath))
+            try
             {
-               await file.CopyToAsync(stream);
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+                    return true;
+                }
             }
+            catch (Exception)
+            {
+              return false;
+            }
+
             //Companyproduct c = await companyproductbl.post(companyproduct);
             //if (c != null)
             //    return c;
             //else
-            
-            return filePath;
+
         }
 
         [HttpPost]
@@ -75,7 +84,7 @@ namespace priceTracker.Controllers
         {
 
             Companyproduct c = await companyproductbl.post(companyproduct);
-            companyproductbl.findSimilarProduct(companyproduct);
+           // companyproductbl.findSimilarProduct(companyproduct);
 
             if (c != null)
                 return c;
@@ -85,9 +94,9 @@ namespace priceTracker.Controllers
         }
         // PUT api/<CompanyProductController>/5
         [HttpPut]
-        public async Task<Companyproduct> Put( [FromBody] Companyproduct companyproduct)
+        public async Task<Companyproduct> Put([FromBody] Companyproduct companyproduct)
         {
-          return await companyproductbl.put(companyproduct);
+            return await companyproductbl.put(companyproduct);
 
         }
 
@@ -95,7 +104,7 @@ namespace priceTracker.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Delete(int id)
         {
-          await companyproductbl.delete(id);
+            await companyproductbl.delete(id);
             return true;
 
         }
