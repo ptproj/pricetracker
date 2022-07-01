@@ -18,7 +18,7 @@ namespace priceTracker.Controllers
     
         public ProductToAdveriseController(IProductToAdvertiseBL productToAdvertisebl)
         {
-            this.productToAdvertisebl = productToAdvertisebl;
+            this.productToAdvertisebl = productToAdvertisebl;  
         }
         // GET: api/<ProductToAdveriseController>
         //[HttpGet]

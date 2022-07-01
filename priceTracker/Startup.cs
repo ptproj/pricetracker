@@ -139,9 +139,15 @@ namespace priceTracker
                         Public = true,
                         MaxAge = TimeSpan.FromSeconds(60)
                     };
+       
                 context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
                     new string[] { "Accept-Encoding" };
 
+                context.Response.Headers.Add(
+                "Content-Security-Policy",
+                "script-src 'self'; " +
+                "style-src 'self' ; " +
+                "img-src 'self'");
                 await next();
             });
             app.UseAuthentication();
