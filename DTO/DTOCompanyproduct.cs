@@ -4,15 +4,11 @@ using System.Text.Json.Serialization;
 
 #nullable disable
 
-namespace Entity
+namespace DTO
 {
-    public partial class Companyproduct
+    public class DTOCompanyproduct
     {
-        public Companyproduct()
-        {
-            Producttoadvertises = new HashSet<Producttoadvertise>();
-        }
-
+      
         public int Id { get; set; }
         public int Companyid { get; set; }
         public string Image { get; set; }
@@ -21,9 +17,6 @@ namespace Entity
         public string Description { get; set; }
         public bool Active { get; set; }
         public string Productlink { get; set; }
-        [JsonIgnore]
-        public virtual Company Company { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Producttoadvertise> Producttoadvertises { get; set; }
+       public string ImageContent { get; set; }
     }
 }

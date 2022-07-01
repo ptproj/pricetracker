@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -19,8 +20,9 @@ namespace Entity
         public int? Packageid { get; set; }
         public DateTime? Startofsubsciption { get; set; }
         public string Salt { get; set; }
-
+        [JsonIgnore]
         public virtual Package Package { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Companyproduct> Companyproducts { get; set; }
     }
 }
