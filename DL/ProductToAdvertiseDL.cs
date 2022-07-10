@@ -15,11 +15,12 @@ namespace DL
         {
             _context = context;
         }
-        public async Task<List<Companyproduct>> get(int Costumerid)
+        public async Task<List<Producttoadvertise>> get(int Costumerid)
         {
+            List<Producttoadvertise> toAdvertise = await _context.Producttoadvertises.Where(c => c.Sentbyemail == false).Include(c => c.Companyproduct).Distinct().ToListAsync();
 
             //    return all products to advertise that match the costumer id;
-            return null;
+            return toAdvertise;
         }
         public async Task<List<Producttoadvertise>> Advertise()
         {
