@@ -15,5 +15,6 @@ namespace DL
         public Task<string> getemail(int costumerid);
         public List<Companyproduct> findSimilarProduct();
 
+        public Task addProductToAdvertise(int companyProductId, int costumerProductId);
     }
 }

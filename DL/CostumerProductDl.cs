@@ -58,6 +58,10 @@ namespace DL
             List<Companyproduct> companyProducts =  _context.Companyproducts.ToList();
             return companyProducts;
         }
+        public async Task addProductToAdvertise(int companyProductId,int costumerId)
+        {
+           await _context.Producttoadvertises.AddAsync(new Producttoadvertise(companyProductId, costumerId, false));
+        }
     }
 
 }

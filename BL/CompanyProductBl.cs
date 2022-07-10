@@ -56,9 +56,9 @@ namespace BL
         {
             List<Costumerproduct> Costumerproduct = companyproductdl.findSimilarProduct();
             List<string> Costumerproduct_desc = new List<string>();
+            Costumerproduct_desc.Add(companyproduct.Description);
             Costumerproduct.ForEach(Costumerproduct =>
             Costumerproduct_desc.Add(Costumerproduct.Description));
-            Costumerproduct_desc.Add(companyproduct.Description);
 
 
             //using WebRequest
@@ -89,6 +89,23 @@ namespace BL
             }
             //טיפול בתשובה שחזרה מהשרת
             response.Close();
+            int start = responseFromServer.IndexOf("[");
+            int end = responseFromServer.IndexOf("]");
+            string similarity = responseFromServer.Substring(start + 1, end - start - 1);
+            Console.WriteLine(similarity);
+            string[] similarityarr = similarity.Split(",");
+            bool[] isSimilar = new bool[similarityarr.Length];
+            for (int i = 1; i < similarityarr.Length; i++)
+            {
+                if (similarityarr[i].Contains('7') || similarityarr[i].Contains('8') || similarityarr[i].Contains('9'))
+                    isSimilar[i] = true;
+            }
+            for (int i = 1; i < isSimilar.Length; i++)
+            {
+                if (isSimilar[i])
+                    companyproductdl.addProductToAdvertise(companyproduct.Id,Costumerproduct[i - 1].Costumerid );
+            }
+
 
         }
     }

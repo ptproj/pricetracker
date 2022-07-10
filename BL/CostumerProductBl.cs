@@ -51,7 +51,7 @@ namespace BL
             response2.Close();
             int start2 = responseFromServer2.IndexOf("[");
             int end2 = responseFromServer2.IndexOf("]");
-            string desc=responseFromServer2.Substring(start2+2, end2 - start2 - 2);
+            string desc=responseFromServer2.Substring(start2+2, end2 - start2 - 3);
             costumerproduct.Description = desc;
             return await costumerProductdl.post(costumerproduct);
 
@@ -146,9 +146,9 @@ namespace BL
         {
             List<Companyproduct> Companyproducts = costumerProductdl.findSimilarProduct();
             List<string> Companyproducts_desc = new List<string>();
+            Companyproducts_desc.Add(costumerproduct.Description);
             Companyproducts.ForEach(companyProduct =>
             Companyproducts_desc.Add(companyProduct.Description));
-            Companyproducts_desc.Add(costumerproduct.Description);
 
 
             //using WebRequest
@@ -178,8 +178,27 @@ namespace BL
                 Console.WriteLine(responseFromServer);
 
             }
-            //טיפול בתשובה שחזרה מהשרת
             response.Close();
+
+            int start = responseFromServer.IndexOf("[");
+            int end = responseFromServer.IndexOf("]");
+            string similarity = responseFromServer.Substring(start + 1, end - start - 1);
+            Console.WriteLine(similarity);
+            string[] similarityarr = similarity.Split(",");
+            bool[] isSimilar = new bool[similarityarr.Length];
+            for(int i=1;i<similarityarr.Length; i++)
+            {
+                if (similarityarr[i].Contains('7') || similarityarr[i].Contains('8') || similarityarr[i].Contains('9'))
+                    isSimilar[i] = true;
+            }
+            for(int i = 1; i < isSimilar.Length; i++)
+            {
+                if (isSimilar[i])
+                    costumerProductdl.addProductToAdvertise(Companyproducts[i - 1].Id,costumerproduct.Costumerid);
+            }
+
+            
+            
 
         }
         }

@@ -9,5 +9,7 @@ namespace BL
 
         public Task<List<Companyproduct>> get(int costumerid);
 
+        public Task Advertise();
+
     }
 }

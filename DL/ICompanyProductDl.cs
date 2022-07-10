@@ -15,6 +15,6 @@ namespace DL
         public Task<Companyproduct> put(Companyproduct companyproduct);
         public List<Costumerproduct> findSimilarProduct();
 
-
+        public Task addProductToAdvertise(int companyProductId, int costumerId);
     }
 }

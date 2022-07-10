@@ -36,7 +36,15 @@ namespace priceTracker.Controllers
             return l;
 
         }
-      
+
+        [HttpGet]
+        public async Task Advertise()
+        {
+            
+            await productToAdvertisebl.Advertise();
+
+        }
+
         // POST api/<ProductToAdveriseController>
         //[HttpPost]
         //public void Post([FromBody] string value)

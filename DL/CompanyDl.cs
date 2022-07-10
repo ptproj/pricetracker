@@ -35,6 +35,7 @@ namespace DL
            
            Company c= await _context.Companies.Where(x=>x.Id.Equals( companyid)).FirstAsync();
             c.Packageid = packageid;
+            c.Startofsubsciption = DateTime.Now;
             await _context.SaveChangesAsync();
             return true;
         }

@@ -12,9 +12,15 @@ namespace Entity
         public int Companyproductid { get; set; }
         public int Costumertid { get; set; }
         public bool Sentbyemail { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Companyproduct Companyproduct { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Costumer Costumert { get; set; }
+        public Producttoadvertise(int Companyproductid,int Costumertid,bool Sentbyemail)
+        {
+            this.Companyproductid = Companyproductid;
+            this.Costumertid = Costumertid;
+            this.Sentbyemail = Sentbyemail;
+        }
     }
 }
