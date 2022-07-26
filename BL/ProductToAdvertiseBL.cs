@@ -20,7 +20,7 @@ namespace BL
             this.productToAdvertisedl = productToAdvertisedl;
         }
 
-        public async Task<List<Companyproduct>> get(int costumerid)
+        public async Task<List<Producttoadvertise>> get(int costumerid)
         {
             return await productToAdvertisedl.get(costumerid);
         }

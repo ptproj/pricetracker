@@ -15,6 +15,7 @@ namespace DL
         {
             _context = context;
         }
+
         public async Task<List<Producttoadvertise>> get(int Costumerid)
         {
             List<Producttoadvertise> toAdvertise = await _context.Producttoadvertises.Where(c => c.Sentbyemail == false).Include(c => c.Companyproduct).Distinct().ToListAsync();

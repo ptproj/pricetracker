@@ -7,7 +7,7 @@ namespace BL
     public interface IProductToAdvertiseBL
     {
 
-        public Task<List<Companyproduct>> get(int costumerid);
+        public Task<List<Producttoadvertise>> get(int costumerid);
 
         public Task Advertise();
 

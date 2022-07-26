@@ -29,10 +29,10 @@ namespace priceTracker.Controllers
 
         // GET api/<ProductToAdveriseController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Companyproduct>>> Get(int costumerid)
+        public async Task<ActionResult<List<Producttoadvertise>>> Get(int costumerid)
         {
            
-            List<Companyproduct> l =await productToAdvertisebl.get(costumerid);
+            List<Producttoadvertise> l =await productToAdvertisebl.get(costumerid);
             return l;
 
         }
