@@ -112,7 +112,7 @@ namespace BL
             //message.IsBodyHtml = true;
             //SmtpClient client = new SmtpClient("smtp.live.com", 587); //Gmail smtp    
             //System.Net.NetworkCredential basicCredential1 = new
-            //System.Net.NetworkCredential("212628143@mby.co.il", "Student@264");
+            //System.Net.NetworkCredential("212628143@mby.co.il", "myEmailPassword");
             //client.EnableSsl = true;
             //client.UseDefaultCredentials = false;
             //client.Credentials = basicCredential1;
@@ -137,7 +137,7 @@ namespace BL
             SmtpClient client = new SmtpClient();
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("212628143@mby.co.il", "Student@264");
+            client.Credentials = new NetworkCredential("212628143@mby.co.il", "myEmailPassword");
             client.Host = "smtp.office365.com";
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;

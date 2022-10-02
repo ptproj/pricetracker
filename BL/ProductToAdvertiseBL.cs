@@ -50,7 +50,7 @@ namespace BL
             SmtpClient client = new SmtpClient();
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("212628143@mby.co.il", "Student@264");
+            client.Credentials = new NetworkCredential("212628143@mby.co.il", "myEmailPassword");
             client.Host = "smtp.office365.com";
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
